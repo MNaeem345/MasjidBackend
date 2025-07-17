@@ -1,0 +1,39 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Role{
+  ADMIN
+  USER
+}
+
+model User {
+  id      Int      @id @default(autoincrement())
+  email String? @unique
+  isAdmin   Boolean @default(false)
+  role Role @default(USER)
+}
+
+
+model PrayerTimes{
+  id  Int @id @default(autoincrement())
+  name  String?
+  content String
+}
+
+model MasjidEvents{
+  id  Int @id @default(autoincrement())
+  name  String?
+  content String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
